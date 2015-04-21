@@ -1,0 +1,28 @@
+{# Global variables
+
+Global variables should be defined here.  This allows us to calculate values
+once and use them throughout the pillar hierarchy.
+
+ex. foo.sls
+{%- from "vars.jinja" import vars with context %}
+---
+foo:
+  bar: {{ vars.baz }}
+...
+
+#}
+
+{% set instance_id, straycat_service_name, straycat_env = grains['id'].split('.') %}
+
+{%-
+  set vars = {
+    'instance_id':          instance_id,
+    'straycat_service_name':    straycat_service_name,
+    'straycat_env':             straycat_env,
+    'hostname_domain':      'straycat-net.com',
+    'puppet_master':        'puppet.straycat.io',
+    'puppet_version':       '3.7.4-1puppetlabs1',
+    'puppet_psk':           'MyPSKIsASecret',
+    'salt_master':          'salt.straycat.io',
+  }
+%}
